@@ -1,0 +1,8 @@
+2) Bookmark the GitHub folder for this section: https://github.com/in28minutes/spring-web-services/tree/master/restful-web-services-v2
+
+
+
+Help for Debugging Problems:
+Here's the code backup at the end of step 05: https://github.com/in28minutes/spring-web-services/blob/master/restful-web-services-v2/Step05.md
+
+Step by Step changes are detailed here: https://github.com/in28minutes/spring-web-services/blob/master/restful-web-services-v2/01-step-by-step-changes/v2.md#step-03
