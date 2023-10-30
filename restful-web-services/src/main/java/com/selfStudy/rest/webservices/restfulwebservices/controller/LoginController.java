@@ -1,30 +1,37 @@
 package com.selfStudy.rest.webservices.restfulwebservices.controller;
 
-import com.selfStudy.rest.webservices.restfulwebservices.services.LoginService;
+import com.selfStudy.rest.webservices.restfulwebservices.services.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("name")
 public class LoginController {
-    @Autowired
-    private LoginService loginService;
-
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-
-    @RequestMapping("login1")
-    public ResponseEntity<String>  loginPage(){
-        return new ResponseEntity<>(loginService.login("login"), HttpStatus.OK);
-    }
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String goToLoginPage(){
+    public String goToLoginPage() {
+        return "login";
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String goToWelcomePage(@RequestParam String name, @RequestParam String password, ModelMap model) {
+
+        if (authenticationService.authenticate(name, password)) {
+            model.put("name", name);
+            return "welcome";
+        }
+        model.put("errorMessage", "Invalid Credentials!, Please try again.");
         return "login";
     }
 }
